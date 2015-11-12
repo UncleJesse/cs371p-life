@@ -19,23 +19,28 @@ class FredkinCell;
 class Cell;
 
 abstract class AbstractCell{
+	private:
+		bool isAlive;
 	protected:
-		virtual int countNeighbors();
+		virtual void determineState(Life& life);
 
 
 };
 
 class ConwayCell: public AbstractCell{
+	private:
+		bool isAlive;
 	public:
-		int countNeighbors();
+		void determineState(Life& life);
 };
 
 class FredkinCell: public AbstractCell{
 	private:
+		bool isAlive;
 		int age;
 
 	public:
-		int countNeighbors();
+		void determineState(Life& life);
 };
 
 class Cell{
@@ -45,6 +50,10 @@ class Cell{
 
 template <typename T>;
 class Life<T>{
+	private:
+		vector<Cell> board;
+		int maxX;
+		int maxY;
 	public:
 		void print(int frequencyOut);
 
