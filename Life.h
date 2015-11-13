@@ -18,46 +18,47 @@ class ConwayCell;
 class FredkinCell;
 class Cell;
 
-abstract class AbstractCell{
+class AbstractCell{
 	private:
-		bool isAlive;
-	protected:
-		virtual void determineState(Life& life);
+		char image;
+		bool currentState;
+		bool nextState;
+	protected: 
+		virtual void determineNextState(vector<ConwayCell> neighbors)=0;
+		virtual bool isAlive()=0;
 
 
 };
 
-class ConwayCell: public AbstractCell{
+class ConwayCell: AbstractCell{
 	private:
-		bool isAlive;
+		char image;
+		bool currentState;
+		bool nextState;
 	public:
-		void determineState(Life& life);
+		ConwayCell();
+		void determineNextState(vector<ConwayCell> neighbors);
+		bool isAlive();
 };
 
-class FredkinCell: public AbstractCell{
+class Life{
 	private:
-		bool isAlive;
-		int age;
-
+		vector<ConwayCell> board;
+		const int rows;
+		const int cols;
+		int generation;
 	public:
-		void determineState(Life& life);
+		Life(const int& r,const int& c);
+		void runTurn(vector<ConwayCell> board);
+		bool inBounds(int r, int c);
+		ConwayCell at(const int& x, const int& y);
+		vector<ConwayCell> cellNeighbors(int x, int y);
+		vector<ConwayCell>::iterator begin();
+		vector<ConwayCell>::iterator end();
+		friend std::ostream& operator<<(std::ostream& os, Life& l);
+
 };
 
-class Cell{
-	private:
-		AbstractCell* _ac;
-};
-
-template <typename T>;
-class Life<T>{
-	private:
-		vector<Cell> board;
-		int maxX;
-		int maxY;
-	public:
-		void print(int frequencyOut);
-
-		void processInput(istream& is, ostream& os);
-};
+void processInput(istream& s, ostream& os);
 
 #endif 

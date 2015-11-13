@@ -46,8 +46,8 @@ clean:
 	rm -f *.gcda
 	rm -f *.gcno
 	rm -f *.gcov
-	rm -f RunVoting
-	rm -f RunVoting.tmp
+	rm -f RunLife
+	rm -f RunLife.tmp
 	rm -f TestLife
 	rm -f TestLife.tmp
 
@@ -92,10 +92,11 @@ RunLife.tmp: RunLife
 	diff RunLife.tmp RunLife.out
 
 TestLife: Life.h Life.c++ TestLife.c++
-	$(CXX) $(CXXFLAGS) $(GCOVFLAGS) Voting.c++ TestLife.c++ -o TestLife $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) $(GCOVFLAGS) Life.c++ TestLife.c++ -o TestLife $(LDFLAGS)
 
 TestLife.tmp: TestLife
 	$(VALGRIND) ./TestLife
 	$(GCOV) -b Life.c++     | grep -A 5 "File 'Life.c++'"     >> TestLife.tmp
 	$(GCOV) -b TestLife.c++ | grep -A 5 "File 'TestLife.c++'" >> TestLife.tmp
 	diff TestLife.tmp TestLife.out
+
