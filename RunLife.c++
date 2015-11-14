@@ -5,9 +5,7 @@
 using namespace std;
 
 int main(){
-	//processInput(cin, cout);
-	Life l(3,3);
-	cout<<l<<endl;
+	processInput(cin, cout);
 
 	return 0;
 }

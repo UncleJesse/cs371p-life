@@ -4,25 +4,43 @@
 
 
 using namespace std;
-
-bool ConwayCell::isAlive(){
-	return true;
+//Abstract cel
+void AbstractCell::updateCell(){
+	currentState=nextState;
+	nextState=false;
 }
+
 //ConwayCell
-void ConwayCell::determineNextState(vector<ConwayCell> neighbors){
-	int numOfLiveNeighbors=0;
-	for(int i=0; i< (int)neighbors.size(); i++){
-		if(neighbors[i].isAlive())
-			numOfLiveNeighbors++;
-	}
-}
-
-
 ConwayCell::ConwayCell(){
 	image='.';
 	currentState=false;
 	nextState=false;
 }
+
+void ConwayCell::countLiveNeighbors(vector<ConwayCell> neighbors){
+	for(int i=0; i< (int)neighbors.size(); i++){
+		if(neighbors[i].isAlive())
+			numberOfLiveNeighbors++;
+	}
+}
+
+void ConwayCell::determineNextState(){
+	if(currentState==false && numberOfLiveNeighbors==3){
+		nextState=true;
+		image='*';
+	}
+	if(currentState==true && (numberOfLiveNeighbors<2 ||numberOfLiveNeighbors>3) ){
+		nextState=false;
+		image='.';
+	}
+}
+
+
+bool ConwayCell::isAlive(){
+	return currentState;
+}
+
+
 
 
 
@@ -40,7 +58,7 @@ vector<ConwayCell> Life::cellNeighbors(int x, int y){
 	for(int r=(x-1); r<x+1; r++){
 		for(int c=(y-1); c<y+1; c++){
 			{	
-				if(r!=c && Life::inBounds(r,c))
+				if(!(r==x && c==y) && Life::inBounds(r,c))
 					neighbors.push_back(Life::at(r,c));
 			}
 		}
@@ -55,7 +73,8 @@ bool Life::inBounds(int r,int c){
 void Life::runTurn(vector<ConwayCell> board){
 	for(int r=0; r<rows; r++){
 		for(int c=cols; c<cols; c++){	
-				at(r,c).determineNextState(cellNeighbors(r,c));
+				at(r,c).countLiveNeighbors(cellNeighbors(r,c));
+				at(r,c).determineNextState();
 			}
 		}
 }
@@ -68,24 +87,7 @@ vector<ConwayCell>::iterator Life::end(){
 	return board.end();
 }
 
-std::ostream& operator << (std::ostream& os, Life& l){
 
-	/* Generate row numbers and contents of board */
-	for(int i = 0; i < l.rows; ++i){
-		os << (i % 10);	/* row number */
-		/* display creature or . if empty space*/
-		for(int j = 0; j < l.cols; ++j){
-				ConwayCell c = l.at(i , j);
-				os << ".";
-		}
-		/* start a newline*/
-		if(i < l.rows - 1)	 os << "\n";
-	}
-	return os;
-
-}
-
-/*
 void processInput(istream& r, ostream& os){
 
 	string cellType;
@@ -115,7 +117,10 @@ void processInput(istream& r, ostream& os){
 	string s;
 	while (getline(r, s)) {
 		cout<<"s: "<<s<<endl;
+		for(int i=0; i<s.length(); i++){
+			
+		}
 		getline(r, s);
 	}
 	
-}*/
+}

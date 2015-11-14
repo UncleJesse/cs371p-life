@@ -23,10 +23,12 @@ class AbstractCell{
 		char image;
 		bool currentState;
 		bool nextState;
+		int numberOfLiveNeighbors;
 	protected: 
-		virtual void determineNextState(vector<ConwayCell> neighbors)=0;
+		virtual void determineNextState()=0;
 		virtual bool isAlive()=0;
-
+		virtual void countLiveNeighbors(vector<ConwayCell> neighbors)=0;
+		void updateCell();
 
 };
 
@@ -35,10 +37,12 @@ class ConwayCell: AbstractCell{
 		char image;
 		bool currentState;
 		bool nextState;
+		int numberOfLiveNeighbors;
 	public:
 		ConwayCell();
-		void determineNextState(vector<ConwayCell> neighbors);
+		void determineNextState();
 		bool isAlive();
+		void countLiveNeighbors(vector<ConwayCell> neighbors);
 };
 
 class Life{
@@ -55,7 +59,6 @@ class Life{
 		vector<ConwayCell> cellNeighbors(int x, int y);
 		vector<ConwayCell>::iterator begin();
 		vector<ConwayCell>::iterator end();
-		friend std::ostream& operator<<(std::ostream& os, Life& l);
 
 };
 
