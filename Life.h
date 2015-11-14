@@ -19,44 +19,36 @@ class FredkinCell;
 class Cell;
 
 class AbstractCell{
-	private:
-		char image;
-		bool currentState;
-		bool nextState;
-		int numberOfLiveNeighbors;
 	protected: 
-		virtual void determineNextState()=0;
+		virtual void determineNextState(vector<ConwayCell> neighbors)=0;
+		virtual void updateCell()=0;
 		virtual bool isAlive()=0;
-		virtual void countLiveNeighbors(vector<ConwayCell> neighbors)=0;
-		void updateCell();
-
-};
+	};
 
 class ConwayCell: AbstractCell{
 	private:
 		char image;
 		bool currentState;
 		bool nextState;
-		int numberOfLiveNeighbors;
 	public:
 		ConwayCell();
-		void determineNextState();
+		void determineNextState(vector<ConwayCell> neighbors);
+		void updateCell();
 		bool isAlive();
-		void countLiveNeighbors(vector<ConwayCell> neighbors);
 };
 
 class Life{
 	private:
-		vector<ConwayCell> board;
 		const int rows;
 		const int cols;
+		vector<ConwayCell> board;
 		int generation;
 	public:
 		Life(const int& r,const int& c);
 		void runTurn(vector<ConwayCell> board);
 		bool inBounds(int r, int c);
-		ConwayCell at(const int& x, const int& y);
 		vector<ConwayCell> cellNeighbors(int x, int y);
+		ConwayCell at(const int& x, const int& y);
 		vector<ConwayCell>::iterator begin();
 		vector<ConwayCell>::iterator end();
 

@@ -4,11 +4,6 @@
 
 
 using namespace std;
-//Abstract cel
-void AbstractCell::updateCell(){
-	currentState=nextState;
-	nextState=false;
-}
 
 //ConwayCell
 ConwayCell::ConwayCell(){
@@ -17,14 +12,16 @@ ConwayCell::ConwayCell(){
 	nextState=false;
 }
 
-void ConwayCell::countLiveNeighbors(vector<ConwayCell> neighbors){
+bool ConwayCell::isAlive(){
+	return image!='.';
+}
+
+void ConwayCell::determineNextState(vector<ConwayCell> neighbors){
+	int numberOfLiveNeighbors=0;
 	for(int i=0; i< (int)neighbors.size(); i++){
 		if(neighbors[i].isAlive())
 			numberOfLiveNeighbors++;
 	}
-}
-
-void ConwayCell::determineNextState(){
 	if(currentState==false && numberOfLiveNeighbors==3){
 		nextState=true;
 		image='*';
@@ -35,17 +32,15 @@ void ConwayCell::determineNextState(){
 	}
 }
 
-
-bool ConwayCell::isAlive(){
-	return currentState;
+void ConwayCell::updateCell(){
+	currentState=nextState;
+	nextState=false;
 }
 
 
 
-
-
 //Life
-Life::Life(const int& r,const int& c) : rows(r), cols(c), board(r * c){
+Life::Life(const int& r,const int& c): rows(r), cols(c), board(r * c){
 	generation=0;
 }
 
@@ -73,8 +68,7 @@ bool Life::inBounds(int r,int c){
 void Life::runTurn(vector<ConwayCell> board){
 	for(int r=0; r<rows; r++){
 		for(int c=cols; c<cols; c++){	
-				at(r,c).countLiveNeighbors(cellNeighbors(r,c));
-				at(r,c).determineNextState();
+				at(r,c).determineNextState(cellNeighbors(r,c));
 			}
 		}
 }
@@ -87,7 +81,7 @@ vector<ConwayCell>::iterator Life::end(){
 	return board.end();
 }
 
-
+/*
 void processInput(istream& r, ostream& os){
 
 	string cellType;
@@ -123,4 +117,4 @@ void processInput(istream& r, ostream& os){
 		getline(r, s);
 	}
 	
-}
+}*/
