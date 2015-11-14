@@ -5,7 +5,7 @@
 using namespace std;
 
 int main(){
-	//processInput(cin, cout);
+	//runLife(cin, cout);
 
 	return 0;
 }

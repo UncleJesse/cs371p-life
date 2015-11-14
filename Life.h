@@ -31,10 +31,11 @@ class ConwayCell: AbstractCell{
 		bool currentState;
 		bool nextState;
 	public:
-		ConwayCell();
+		ConwayCell(bool state=false);
 		void determineNextState(vector<ConwayCell> neighbors);
 		void updateCell();
 		bool isAlive();
+		friend std::ostream& operator<<(std::ostream& os, const ConwayCell& cc);
 };
 
 class Life{
@@ -51,9 +52,10 @@ class Life{
 		ConwayCell at(const int& x, const int& y);
 		vector<ConwayCell>::iterator begin();
 		vector<ConwayCell>::iterator end();
+		void runLife(istream& s, ostream& os);
+		friend std::ostream& operator<<(std::ostream& os, Life& l);
 
 };
 
-void processInput(istream& s, ostream& os);
 
 #endif 

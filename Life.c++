@@ -6,9 +6,9 @@
 using namespace std;
 
 //ConwayCell
-ConwayCell::ConwayCell(){
-	image='.';
-	currentState=false;
+ConwayCell::ConwayCell(bool state){
+	image= state? '*' :'.';
+	currentState= state? false : true;
 	nextState=false;
 }
 
@@ -35,6 +35,10 @@ void ConwayCell::determineNextState(vector<ConwayCell> neighbors){
 void ConwayCell::updateCell(){
 	currentState=nextState;
 	nextState=false;
+}
+
+std::ostream& operator << (std::ostream& os, const ConwayCell& cc){
+  return os << cc.image;
 }
 
 
@@ -66,12 +70,19 @@ bool Life::inBounds(int r,int c){
 }
 
 void Life::runTurn(vector<ConwayCell> board){
-	for(int r=0; r<rows; r++){
-		for(int c=cols; c<cols; c++){	
-				at(r,c).determineNextState(cellNeighbors(r,c));
-			}
+	for(int currentGeneration=0; currentGeneration<generation; currentGeneration++)
+		for(int r=0; r<rows; r++){
+			for(int c=cols; c<cols; c++){	
+					at(r,c).determineNextState(cellNeighbors(r,c));
+				}
+		}
+		for(int r=0; r<rows; r++){
+			for(int c=cols; c<cols; c++){	
+					at(r,c).updateCell();
+				}
 		}
 }
+
 
 vector<ConwayCell>::iterator Life::begin(){
 	return board.begin();
@@ -81,40 +92,34 @@ vector<ConwayCell>::iterator Life::end(){
 	return board.end();
 }
 
-/*
-void processInput(istream& r, ostream& os){
 
+void runLife(istream& r, ostream& os){
 	string cellType;
 	getline(r, cellType);
-	cout<<"cellType: "<<cellType<<endl;
 
 	string numRows;
 	getline(r, numRows);			
 	int rows = atoi(numRows.c_str());
-	cout<<"numRows: "<<rows<<endl;
 
 	string numCols;
 	getline(r, numCols);
 	int cols = atoi(numCols.c_str());
-	cout<<"cols: "<<cols<<endl;
 	
 	string numGens;
 	getline(r, numGens);
 	int generations = atoi(numGens.c_str());
-	cout<<"generations: "<<generations<<endl;
 	
 	string freqOut;
 	getline(r, freqOut);
 	int frequencyOut = atoi(freqOut.c_str());
-	cout<<"frequency: "<<frequencyOut<<endl;
 
 	string s;
 	while (getline(r, s)) {
 		cout<<"s: "<<s<<endl;
-		for(int i=0; i<s.length(); i++){
+		for(int i=0; i<(int)s.length(); i++){
 			
 		}
 		getline(r, s);
 	}
 	
-}*/
+}

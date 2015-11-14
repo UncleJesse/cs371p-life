@@ -83,8 +83,6 @@ Doxyfile:
 	doxygen -g
 
 RunLife: Life.h Life.c++ RunLife.c++
-	# I believe below are the gcov and valgrind output
-	# $(CXX) $(CXXFLAGS) $(GCOVFLAGS) Voting.c++ RunVoting.c++ -o RunVoting
 	$(CXX) $(CXXFLAGS) Life.c++ RunLife.c++ -o RunLife
 
 RunLife.tmp: RunLife
