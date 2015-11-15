@@ -36,6 +36,7 @@ class ConwayCell: AbstractCell{
 		void updateCell();
 		bool isAlive();
 		friend std::ostream& operator<<(std::ostream& os, const ConwayCell& cc);
+		ConwayCell& operator= (const ConwayCell &rhs);
 };
 
 class Life{
@@ -50,7 +51,8 @@ class Life{
 		void runTurn();
 		bool inBounds(int r, int c);
 		vector<ConwayCell> cellNeighbors(int x, int y);
-		ConwayCell at(const int& x, const int& y);
+		ConwayCell& at(const int& x, const int& y);
+		void printBoard();
 		vector<ConwayCell>::iterator begin();
 		vector<ConwayCell>::iterator end();
 		friend std::ostream& operator<<(std::ostream& os, Life& l);
