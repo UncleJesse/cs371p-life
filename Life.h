@@ -46,7 +46,7 @@ class Life{
 		
 	public:
 	    int population;
-		Life(const int& r,const int& c,const vector<ConwayCell>& cells = vector<ConwayCell>() );
+		Life(const int& r,const int& c,const vector<ConwayCell>& cells);
 		void runTurn();
 		bool inBounds(int r, int c);
 		vector<ConwayCell> cellNeighbors(int x, int y);

@@ -9,7 +9,7 @@ using namespace std;
 ConwayCell::ConwayCell(bool state){
 	image= state? '*' :'.';
 	currentState= state? true : false;
-	nextState=false;
+	nextState=currentState;
 }
 
 bool ConwayCell::isAlive(){
@@ -116,48 +116,52 @@ std::ostream& operator << (std::ostream& os, Life& l){
 
 void runInput(istream& r, ostream& os){
 		while(!r.eof()){
-		string cellType;
-		getline(r, cellType);
-	
-		string numRows;
-		getline(r, numRows);			
-		int rows = atoi(numRows.c_str());
-	
-		string numCols;
-		getline(r, numCols);
-		int cols = atoi(numCols.c_str());
+			string cellType;
+			getline(r, cellType);
 		
-		string numGens;
-		getline(r, numGens);
-		int generations = atoi(numGens.c_str());
+			string numRows;
+			getline(r, numRows);			
+			int rows = atoi(numRows.c_str());
 		
-		string freqOut;
-		getline(r, freqOut);
-		int frequencyOut = atoi(freqOut.c_str());
-	
-		vector<ConwayCell> allCells;
-		for(int currentR=0; currentR<rows; currentR++){
-			string currentRow;
-			getline(r, currentRow);
-			for(int i=0; i<cols; i++){
-				if(currentRow[i]=='.'){
-					ConwayCell temp;
-					allCells.push_back(temp);
-				}
-				else{
-					ConwayCell temp(true);
-					allCells.push_back(temp);
+			string numCols;
+			getline(r, numCols);
+			int cols = atoi(numCols.c_str());
+			
+			string numGens;
+			getline(r, numGens);
+			int generations = atoi(numGens.c_str());
+			
+			string freqOut;
+			getline(r, freqOut);
+			int frequencyOut = atoi(freqOut.c_str());
+		
+			vector<ConwayCell> allCells;
+			for(int currentR=0; currentR<rows; currentR++){
+				string currentRow;
+				getline(r, currentRow);
+				for(int i=0; i<cols; i++){
+					if(currentRow[i]=='.'){
+						ConwayCell temp;
+						allCells.push_back(temp);
+					}
+					else{
+						ConwayCell temp(true);
+						allCells.push_back(temp);
+					}
 				}
 			}
-		}
-		Life l(rows,cols,allCells);
-		cout<<"*** Life<"<<cellType<<"> "<<rows<<"x"<<cols<<"***\n"<<endl;
-		for(int currentGen=0; currentGen<generations; currentGen++){
-			if(currentGen%frequencyOut==0){
+			Life l(rows,cols,allCells);
+			
+			cout<<"*** Life<"<<cellType<<"> "<<rows<<"x"<<cols<<"***\n"<<endl;
+			for(int currentGen=0; currentGen<=generations; currentGen++){
 				cout<<"Generation = "<<currentGen<<", Population = "<<l.population <<"."<<endl;
 				cout<<l<<endl;
+				l.runTurn();
 			}
-			l.runTurn();
-		}
+			string s;
+			getline(r,s);
+			getline(r,s);
+
+
 	}
 }
