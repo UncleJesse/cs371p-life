@@ -112,8 +112,9 @@ vector<ConwayCell>::iterator Life::end(){
 std::ostream& operator << (std::ostream& os, Life& l){
 	for(int r = 0; r < l.rows; ++r){
 		for(int c = 0; c < l.cols; ++c){
-			os << l.at(r , c);
-		}
+			os<<'.';
+		}	 
+	os << "\n";
 	}
 	return os;
 }
@@ -159,7 +160,7 @@ void runInput(istream& r, ostream& os){
 			cout<<"*** Life<"<<cellType<<"> "<<rows<<"x"<<cols<<"***\n"<<endl;
 			for(int currentGen=0; currentGen<=generations; currentGen++){
 				cout<<"Generation = "<<currentGen<<", Population = "<<l.population <<"."<<endl;
-				//cout<<l<<endl;
+				cout<<l<<endl;
 				//l.runTurn();
 			}
 	}
