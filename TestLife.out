@@ -1,0 +1,12 @@
+File 'Life.c++'
+Lines executed:22.55% of 102
+Branches executed:11.76% of 170
+Taken at least once:9.41% of 170
+Calls executed:4.81% of 104
+Creating 'Life.c++.gcov'
+File 'TestLife.c++'
+Lines executed:100.00% of 80
+Branches executed:65.66% of 396
+Taken at least once:33.59% of 396
+Calls executed:48.86% of 438
+Creating 'TestLife.c++.gcov'
