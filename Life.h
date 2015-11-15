@@ -43,19 +43,20 @@ class Life{
 		const int rows;
 		const int cols;
 		vector<ConwayCell> board;
-		int generation;
+		
 	public:
-		Life(const int& r,const int& c);
-		void runTurn(vector<ConwayCell> board);
+	    int population;
+		Life(const int& r,const int& c,const vector<ConwayCell>& cells = vector<ConwayCell>() );
+		void runTurn();
 		bool inBounds(int r, int c);
 		vector<ConwayCell> cellNeighbors(int x, int y);
 		ConwayCell at(const int& x, const int& y);
 		vector<ConwayCell>::iterator begin();
 		vector<ConwayCell>::iterator end();
-		void runLife(istream& s, ostream& os);
 		friend std::ostream& operator<<(std::ostream& os, Life& l);
 
 };
+void runInput(istream& r, ostream& os);
 
 
 #endif 

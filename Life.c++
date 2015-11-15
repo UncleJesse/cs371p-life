@@ -8,7 +8,7 @@ using namespace std;
 //ConwayCell
 ConwayCell::ConwayCell(bool state){
 	image= state? '*' :'.';
-	currentState= state? false : true;
+	currentState= state? true : false;
 	nextState=false;
 }
 
@@ -24,16 +24,18 @@ void ConwayCell::determineNextState(vector<ConwayCell> neighbors){
 	}
 	if(currentState==false && numberOfLiveNeighbors==3){
 		nextState=true;
-		image='*';
 	}
 	if(currentState==true && (numberOfLiveNeighbors<2 ||numberOfLiveNeighbors>3) ){
 		nextState=false;
-		image='.';
+	}
+	else{
+		nextState=currentState;
 	}
 }
 
 void ConwayCell::updateCell(){
 	currentState=nextState;
+	image= nextState?'*':'.';
 	nextState=false;
 }
 
@@ -44,8 +46,13 @@ std::ostream& operator << (std::ostream& os, const ConwayCell& cc){
 
 
 //Life
-Life::Life(const int& r,const int& c): rows(r), cols(c), board(r * c){
-	generation=0;
+Life::Life(const int& r,const int& c,const vector<ConwayCell>& cells): rows(r), cols(c),board(r * c){
+	population=0;
+	for(int i=0; i<(int)cells.size(); i++){
+		board.push_back(cells[i]);
+		if(board[i].isAlive())
+			population++;
+	}
 }
 
 ConwayCell Life::at(const int& x, const int& y){
@@ -69,20 +76,21 @@ bool Life::inBounds(int r,int c){
 	return (r<rows) && (r>=0) && (c<cols) && (c>=0);
 }
 
-void Life::runTurn(vector<ConwayCell> board){
-	for(int currentGeneration=0; currentGeneration<generation; currentGeneration++)
-		for(int r=0; r<rows; r++){
-			for(int c=cols; c<cols; c++){	
-					at(r,c).determineNextState(cellNeighbors(r,c));
-				}
-		}
-		for(int r=0; r<rows; r++){
-			for(int c=cols; c<cols; c++){	
-					at(r,c).updateCell();
-				}
-		}
+void Life::runTurn(){
+	population=0;
+	for(int r=0; r<rows; r++){
+		for(int c=cols; c<cols; c++){	
+				at(r,c).determineNextState(cellNeighbors(r,c));
+			}
+	}
+	for(int r=0; r<rows; r++){
+		for(int c=cols; c<cols; c++){	
+				at(r,c).updateCell();
+				if(at(r,c).isAlive())
+					population++;
+			}
+	}
 }
-
 
 vector<ConwayCell>::iterator Life::begin(){
 	return board.begin();
@@ -92,34 +100,64 @@ vector<ConwayCell>::iterator Life::end(){
 	return board.end();
 }
 
-
-void runLife(istream& r, ostream& os){
-	string cellType;
-	getline(r, cellType);
-
-	string numRows;
-	getline(r, numRows);			
-	int rows = atoi(numRows.c_str());
-
-	string numCols;
-	getline(r, numCols);
-	int cols = atoi(numCols.c_str());
-	
-	string numGens;
-	getline(r, numGens);
-	int generations = atoi(numGens.c_str());
-	
-	string freqOut;
-	getline(r, freqOut);
-	int frequencyOut = atoi(freqOut.c_str());
-
-	string s;
-	while (getline(r, s)) {
-		cout<<"s: "<<s<<endl;
-		for(int i=0; i<(int)s.length(); i++){
-			
+std::ostream& operator << (std::ostream& os, Life& l){
+	/* Generate row numbers and contents of board */
+	for(int i = 0; i < l.rows; ++i){
+		/* display creature or . if empty space*/
+		for(int j = 0; j < l.cols; ++j){
+			ConwayCell cc = l.at(i , j);
+			os << cc;
 		}
-		getline(r, s);
+		/* start a newline*/
+		if(i < l.rows - 1)	 os << "\n";
 	}
+	return os;
+}
+
+void runInput(istream& r, ostream& os){
+		while(!r.eof()){
+		string cellType;
+		getline(r, cellType);
 	
+		string numRows;
+		getline(r, numRows);			
+		int rows = atoi(numRows.c_str());
+	
+		string numCols;
+		getline(r, numCols);
+		int cols = atoi(numCols.c_str());
+		
+		string numGens;
+		getline(r, numGens);
+		int generations = atoi(numGens.c_str());
+		
+		string freqOut;
+		getline(r, freqOut);
+		int frequencyOut = atoi(freqOut.c_str());
+	
+		vector<ConwayCell> allCells;
+		for(int currentR=0; currentR<rows; currentR++){
+			string currentRow;
+			getline(r, currentRow);
+			for(int i=0; i<cols; i++){
+				if(currentRow[i]=='.'){
+					ConwayCell temp;
+					allCells.push_back(temp);
+				}
+				else{
+					ConwayCell temp(true);
+					allCells.push_back(temp);
+				}
+			}
+		}
+		Life l(rows,cols,allCells);
+		cout<<"*** Life<"<<cellType<<"> "<<rows<<"x"<<cols<<"***\n"<<endl;
+		for(int currentGen=0; currentGen<generations; currentGen++){
+			if(currentGen%frequencyOut==0){
+				cout<<"Generation = "<<currentGen<<", Population = "<<l.population <<"."<<endl;
+				cout<<l<<endl;
+			}
+			l.runTurn();
+		}
+	}
 }
