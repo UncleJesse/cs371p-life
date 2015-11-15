@@ -173,6 +173,7 @@ std::ostream& operator << (std::ostream& os, Life& l){
 			os << l.at(r , c);
 		}
 		os << endl;
+
 	}
 	return os;
 }
