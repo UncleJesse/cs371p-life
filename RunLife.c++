@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "Life.h"
 
 using namespace std;

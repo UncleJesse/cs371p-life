@@ -19,9 +19,9 @@ class Cell;
 
 class AbstractCell{
 	protected:
-		//virtual void determineNextState(vector<> neighbors);
 		virtual void updateCell()=0;
 		virtual bool isAlive()=0;
+		//virtual void determineNextState(vector<AbstractCell> neighbors);
 	};
 
 class ConwayCell: AbstractCell{
@@ -30,7 +30,7 @@ class ConwayCell: AbstractCell{
 		bool nextState;
 		char image;
 	public:
-		ConwayCell(bool state=false);
+		ConwayCell(char state='.');
 		void determineNextState(vector<ConwayCell> neighbors);
 		void updateCell();
 		bool isAlive();
@@ -45,12 +45,21 @@ class FredkinCell: AbstractCell{
 		char image;
 		int age;
 	public:
-		FredkinCell(bool state=false);
+		FredkinCell(char state='-');
 		void determineNextState(vector<FredkinCell> neighbors);
 		void updateCell();
 		bool isAlive();
 		friend std::ostream& operator<<(std::ostream& os, const FredkinCell* cc);
 		FredkinCell& operator= (const FredkinCell &rhs);
+};
+
+class Cell{
+	private:
+		AbstractCell* _c;
+	public:
+		Cell(char image);
+		~Cell();
+		Cell* operator->();
 };
 
 template<class T>
@@ -59,21 +68,75 @@ class Life{
 		const int rows;
 		const int cols;
 		vector<T> board;
+		int population;
+		int currentGen;
 
 	public:
-	  int population;
-		Life(const int& r,const int& c,const vector<T> cells);
-		void runTurn();
-		bool inBounds(int r, int c);
-		vector<T> cellNeighbors(int x, int y);
-		T* at(const int& x, const int& y);
-		typename vector<T>::iterator begin();
-		typename vector<T>::iterator end();
-		template<class Y>
-		friend ostream& operator << (ostream& os, Life<Y>& l);
-
+		Life(const int& r,const int& c,const vector<T> cells): rows(r), cols(c),board(r * c){
+			population=0;
+			currentGen=0;
+			for(int i=0; i<(int)cells.size(); i++){
+				board[i]=cells[i];
+				if(board.at(i).isAlive())
+					population++;
+			}
+		}
+		void runTurn(){
+			population=0;
+			currentGen++;
+			for(int r=0; r<rows; r++){
+				for(int c=0; c<cols; c++){
+					vector<T> temp=cellNeighbors(r,c);
+					at(r,c)->determineNextState(temp);
+				}
+			}
+			for(int r=0; r<rows; r++){
+				for(int c=0; c<cols; c++){
+						at(r,c)->updateCell();
+						if(at(r,c)->isAlive())
+							population++;
+					}
+			}
+		}
+		bool inBounds(int r,int c){
+			return (r<rows) && (r>=0) && (c<cols) && (c>=0);
+		}
+		vector<T> cellNeighbors(int x, int y){
+			vector<T> neighbors(9);
+			int vectorIndex=0;
+			for(int r=(x-1); r<=x+1; r++){
+				for(int c=(y-1); c<=y+1; c++){
+					{
+						if(!(r==x && c==y) && Life::inBounds(r,c))
+							neighbors[vectorIndex]=*Life::at(r,c);
+						vectorIndex++;
+					}
+				}
+			}
+			return neighbors;
+		}
+		T* at(const int& x, const int& y){
+			return &board[cols * x + y];
+		}
+		typename vector<T>::iterator begin(){
+			return board.begin();
+		}
+		typename vector<T>::iterator end(){
+			return board.end();
+		}
+		friend ostream& operator << (ostream& os, Life<T>& l){
+			cout<<"Generation = "<<l.currentGen<<", Population = "<<l.population <<"."<<endl;
+			for(int r = 0; r < l.rows; ++r){
+				for(int c = 0; c < l.cols; ++c){
+					os << l.at(r , c);
+				}
+				os << endl;
+		
+			}
+			return os;
+		}
 };
-void runInput(istream& r, ostream& os);
 
+void runInput(istream& r, ostream& os);
 
 #endif

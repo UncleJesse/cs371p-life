@@ -6,9 +6,9 @@
 using namespace std;
 
 //ConwayCell
-ConwayCell::ConwayCell(bool state){
-	image= state? '*' :'.';
-	currentState= state? true : false;
+ConwayCell::ConwayCell(char state){
+	image= state;
+	currentState= state=='*'? true : false;
 	nextState=false;
 }
 
@@ -50,10 +50,10 @@ ConwayCell& ConwayCell::operator = (const ConwayCell &rhs){
 }
 //Fredkin Cell
 
-FredkinCell::FredkinCell(bool state){
-	image= state? '0' :'-';
+FredkinCell::FredkinCell(char state){
+	image= state;
 	age=0;
-	currentState= state? true : false;
+	currentState= state=='0'? true : false;
 	nextState=false;
 }
 
@@ -78,8 +78,8 @@ void FredkinCell::determineNextState(vector<FredkinCell> neighbors){
 void FredkinCell::updateCell(){
 	currentState=nextState;
 	if(currentState){
-		age++;
 		image=(age>10)?'+':age+'0';
+		age++;
 	}
 	else
 		image ='-';
@@ -99,86 +99,12 @@ FredkinCell& FredkinCell::operator= (const FredkinCell &rhs){
 	age=rhs.age;
 	return *this;
 }
-
-//Life
-template<typename T>
-Life<T>::Life(const int& r,const int& c,const vector<T> cells): rows(r), cols(c),board(r * c){
-	population=0;
-	for(int i=0; i<(int)cells.size(); i++){
-		board[i]=cells[i];
-		if(board.at(i).isAlive())
-			population++;
-	}
+//Cell
+Cell::Cell(char image){
+	
 }
 
-template<typename T>
-T* Life<T>::at(const int& x, const int& y){
-	return &board[cols * x + y];
-}
-
-template<typename T>
-vector<T> Life<T>::cellNeighbors(int x, int y){
-	vector<T> neighbors(9);
-	int vectorIndex=0;
-	for(int r=(x-1); r<=x+1; r++){
-		for(int c=(y-1); c<=y+1; c++){
-			{
-				if(!(r==x && c==y) && Life::inBounds(r,c))
-					neighbors[vectorIndex]=*Life::at(r,c);
-				vectorIndex++;
-			}
-		}
-	}
-	return neighbors;
-}
-
-template<typename T>
-bool Life<T>::inBounds(int r,int c){
-	return (r<rows) && (r>=0) && (c<cols) && (c>=0);
-}
-
-
-template<typename T>
-void Life<T>::runTurn(){
-	population=0;
-	for(int r=0; r<rows; r++){
-		for(int c=0; c<cols; c++){
-			vector<T> temp=cellNeighbors(r,c);
-			at(r,c)->determineNextState(temp);
-		}
-	}
-	for(int r=0; r<rows; r++){
-		for(int c=0; c<cols; c++){
-				at(r,c)->updateCell();
-				if(at(r,c)->isAlive())
-					population++;
-			}
-	}
-}
-
-template<typename T>
-typename vector<T>::iterator Life<T>::begin(){
-	return board.begin();
-}
-
-template<typename T>
-typename vector<T>::iterator Life<T>::end(){
-	return board.end();
-}
-
-template<typename T>
-ostream& operator << (ostream& os, Life<T>& l){
-	for(int r = 0; r < l.rows; ++r){
-		for(int c = 0; c < l.cols; ++c){
-			os << l.at(r , c);
-		}
-		os << endl;
-
-	}
-	return os;
-}
-
-
+//RunInput
 void runInput(istream& r, ostream& os){
 		while(!r.eof()){
 			string cellType;
@@ -207,55 +133,40 @@ void runInput(istream& r, ostream& os){
 					string currentRow;
 					getline(r, currentRow);
 					for(int i=0; i<cols; i++){
-						if(currentRow[i]=='.'){
-							ConwayCell temp;
-							allCells.push_back(temp);
-						}
-						else{
-							ConwayCell temp(true);
-							allCells.push_back(temp);
-						}
+						ConwayCell temp(currentRow[i]);
+						allCells.push_back(temp);
 					}
 				}
 				Life<ConwayCell> l(rows,cols,allCells);
-
-			cout<<"*** Life<"<<cellType<<"> "<<rows<<"x"<<cols<<"***\n"<<endl;
-			for(int currentGen=0; currentGen<=generations; currentGen++){
-				if(currentGen%frequencyOut==0){
-					cout<<"Generation = "<<currentGen<<", Population = "<<l.population <<"."<<endl;
-					cout<<l<<endl;
+				cout<<"*** Life<"<<cellType<<"> "<<rows<<"x"<<cols<<"***\n"<<endl;
+				for(int currentGen=0; currentGen<=generations; currentGen++){
+					if(currentGen%frequencyOut==0){
+						cout<<l<<endl;
+					}
+					l.runTurn();
 				}
-				l.runTurn();
 			}
-			}
-			else{
+			else if(cellType=="FredkinCell"){
 				vector<FredkinCell> allCells;
 				for(int currentR=0; currentR<rows; currentR++){
 					string currentRow;
 					getline(r, currentRow);
 					for(int i=0; i<cols; i++){
-						if(currentRow[i]=='-'){
-							FredkinCell temp;
-							allCells.push_back(temp);
-						}
-						else{
-							FredkinCell temp(true);
-							allCells.push_back(temp);
-						}
+						FredkinCell temp(currentRow[i]);
+						allCells.push_back(temp);
 					}
 				}
-				Life<FredkinCell> l(rows,cols,allCells);
-
-			cout<<"*** Life<"<<cellType<<"> "<<rows<<"x"<<cols<<"***\n"<<endl;
-			for(int currentGen=0; currentGen<=generations; currentGen++){
-				if(currentGen%frequencyOut==0){
-					cout<<"Generation = "<<currentGen<<", Population = "<<l.population <<"."<<endl;
-					cout<<l<<endl;
-				}
-				l.runTurn();
-			}			
-			}
+				Life<FredkinCell> l(rows,cols,allCells);	
+				cout<<"*** Life<"<<cellType<<"> "<<rows<<"x"<<cols<<"***\n"<<endl;
+				for(int currentGen=0; currentGen<=generations; currentGen++){
+					if(currentGen%frequencyOut==0){
+						cout<<l<<endl;
+					}
+					l.runTurn();
+				}		
+			}		
 			string nextLine;
 			getline(r,nextLine);
 	}
 }
+
