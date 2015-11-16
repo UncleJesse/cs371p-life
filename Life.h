@@ -47,7 +47,7 @@ class FredkinCell: AbstractCell{
 		int age;
 	public:		
 		FredkinCell(bool state=false);
-		void determineNextState(vector<FredkinCell*> neighbors);
+		void determineNextState(vector<FredkinCell> neighbors);
 		void updateCell();
 		bool isAlive();
 		friend std::ostream& operator<<(std::ostream& os, const FredkinCell* cc);

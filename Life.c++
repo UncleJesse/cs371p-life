@@ -57,16 +57,17 @@ FredkinCell::FredkinCell(bool state){
 	nextState=false;
 }
 
-void FredkinCell::determineNextState(vector<FredkinCell*> neighbors){
+void FredkinCell::determineNextState(vector<FredkinCell> neighbors){
+	//a live cell becomes a dead cell, if 0, 2, or 4 neighbors are alive
 	int numberOfLiveNeighbors=0;
-	for(int i=1; i< (int)neighbors.size(); i++){
-		if(neighbors[i]->isAlive())
+	for(int i=1; i< (int)neighbors.size(); i+=2){
+		if(neighbors[i].isAlive())
 			numberOfLiveNeighbors++;
 	}
-	if(currentState==false && numberOfLiveNeighbors==3){
+	if(currentState==false && (numberOfLiveNeighbors==1 || numberOfLiveNeighbors==3)){
 		nextState=true;
 	}
-	else if(currentState==true && (numberOfLiveNeighbors<2 ||numberOfLiveNeighbors>3) ){
+	else if(currentState==true && (numberOfLiveNeighbors==2 ||numberOfLiveNeighbors==4 || numberOfLiveNeighbors==0) ){
 		nextState=false;
 	}
 	else{
