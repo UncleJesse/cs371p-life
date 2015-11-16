@@ -12,14 +12,13 @@
 
 using namespace std;
 
-class Life;
 class AbstractCell;
 class ConwayCell;
 class FredkinCell;
 class Cell;
 
 class AbstractCell{
-	protected: 
+	protected:
 		virtual void determineNextState(vector<ConwayCell> neighbors)=0;
 		virtual void updateCell()=0;
 		virtual bool isAlive()=0;
@@ -30,7 +29,7 @@ class ConwayCell: AbstractCell{
 		bool currentState;
 		bool nextState;
 		char image;
-	public:		
+	public:
 		ConwayCell(bool state=false);
 		void determineNextState(vector<ConwayCell> neighbors);
 		void updateCell();
@@ -45,7 +44,7 @@ class FredkinCell: AbstractCell{
 		bool nextState;
 		char image;
 		int age;
-	public:		
+	public:
 		FredkinCell(bool state=false);
 		void determineNextState(vector<FredkinCell> neighbors);
 		void updateCell();
@@ -54,25 +53,27 @@ class FredkinCell: AbstractCell{
 		FredkinCell& operator= (const FredkinCell &rhs);
 };
 
+template<class T>
 class Life{
 	private:
 		const int rows;
 		const int cols;
-		vector<ConwayCell> board;
-		
+		vector<T> board;
+
 	public:
-	    int population;
-		Life(const int& r,const int& c,const vector<ConwayCell> cells);
+	  int population;
+		Life(const int& r,const int& c,const vector<T> cells);
 		void runTurn();
 		bool inBounds(int r, int c);
-		vector<ConwayCell> cellNeighbors(int x, int y);
-		ConwayCell* at(const int& x, const int& y);
-		vector<ConwayCell>::iterator begin();
-		vector<ConwayCell>::iterator end();
-		friend std::ostream& operator<<(std::ostream& os, Life& l);
+		vector<T> cellNeighbors(int x, int y);
+		T* at(const int& x, const int& y);
+		typename vector<T>::iterator begin();
+		typename vector<T>::iterator end();
+		template<class Y>
+		friend ostream& operator << (ostream& os, Life<Y>& l);
 
 };
 void runInput(istream& r, ostream& os);
 
 
-#endif 
+#endif
