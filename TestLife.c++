@@ -13,7 +13,7 @@ using namespace std;
  	ASSERT_TRUE(x.currentState == false);
  	ASSERT_TRUE(x.nextState == false);
  }
-
+/*
  TEST(Test_ConwayCell, constructor2) {
  	ConwayCell x(true);
  	ASSERT_TRUE(x.nextState == false);

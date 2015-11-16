@@ -16,10 +16,10 @@ bool ConwayCell::isAlive(){
 	return currentState;
 }
 
-void ConwayCell::determineNextState(vector<ConwayCell*> neighbors){
+void ConwayCell::determineNextState(vector<ConwayCell> neighbors){
 	int numberOfLiveNeighbors=0;
 	for(int i=0; i< (int)neighbors.size(); i++){
-		if(neighbors[i]->isAlive())
+		if(neighbors[i].isAlive())
 			numberOfLiveNeighbors++;
 	}
 	if(currentState==false && numberOfLiveNeighbors==3){
@@ -99,29 +99,28 @@ FredkinCell& FredkinCell::operator= (const FredkinCell &rhs){
 }
 
 //Life
-Life::Life(const int& r,const int& c,const vector<ConwayCell*> cells): rows(r), cols(c),board(r * c){
+Life::Life(const int& r,const int& c,const vector<ConwayCell> cells): rows(r), cols(c),board(r * c){
 	population=0;
-	board.resize(0);
-	cout<<cells.size()<<endl;	
-	cout<<board.size()<<endl;
 	for(int i=0; i<(int)cells.size(); i++){
-		board.push_back(cells[i]);
-		if(board.at(i)->isAlive())			
+		board[i]=cells[i];
+		if(board.at(i).isAlive())			
 			population++;
 	}
 }
 
 ConwayCell* Life::at(const int& x, const int& y){
-	return board[cols * x + y];
+	return &board[cols * x + y];
 }
 
-vector<ConwayCell*> Life::cellNeighbors(int x, int y){
-	vector<ConwayCell*> neighbors;
+vector<ConwayCell> Life::cellNeighbors(int x, int y){
+	vector<ConwayCell> neighbors(9);
+	int vectorIndex=0;
 	for(int r=(x-1); r<=x+1; r++){
 		for(int c=(y-1); c<=y+1; c++){
 			{	
 				if(!(r==x && c==y) && Life::inBounds(r,c))
-					neighbors.push_back(Life::at(r,c));
+					neighbors[vectorIndex]=*Life::at(r,c);
+				vectorIndex++;
 			}
 		}
 	}	
@@ -136,7 +135,7 @@ void Life::runTurn(){
 	population=0;
 	for(int r=0; r<rows; r++){
 		for(int c=0; c<cols; c++){	
-			vector<ConwayCell*> temp=cellNeighbors(r,c);
+			vector<ConwayCell> temp=cellNeighbors(r,c);
 			at(r,c)->determineNextState(temp);
 		}
 	}
@@ -150,20 +149,11 @@ void Life::runTurn(){
 	//cout<<*this<<endl;
 }
 
-/*void Life::printBoard(){
-	for(int i=0; i<rows; i++){
-		for(int j=0; j<cols; j++){
-			cout<<at(i,j);
-		}
-		cout<<endl;
-	}
-}*/
-
-vector<ConwayCell*>::iterator Life::begin(){
+vector<ConwayCell>::iterator Life::begin(){
 	return board.begin();
 }
 
-vector<ConwayCell*>::iterator Life::end(){
+vector<ConwayCell>::iterator Life::end(){
 	return board.end();
 }
 
@@ -179,7 +169,6 @@ std::ostream& operator << (std::ostream& os, Life& l){
 }
 
 void runInput(istream& r, ostream& os){
-	cout << "start" << endl;
 		while(!r.eof()){
 			string cellType;
 			getline(r, cellType);
@@ -200,17 +189,17 @@ void runInput(istream& r, ostream& os){
 			getline(r, freqOut);
 			int frequencyOut = atoi(freqOut.c_str());
 			
-			vector<ConwayCell*> allCells;
+			vector<ConwayCell> allCells;
 			for(int currentR=0; currentR<rows; currentR++){
 				string currentRow;
 				getline(r, currentRow);				
 				for(int i=0; i<cols; i++){
 					if(currentRow[i]=='.'){
-						ConwayCell* temp= new ConwayCell(false);
+						ConwayCell temp;
 						allCells.push_back(temp);
 					}
 					else{
-						ConwayCell* temp= new ConwayCell(true);
+						ConwayCell temp(true);
 						allCells.push_back(temp);
 					}
 				}

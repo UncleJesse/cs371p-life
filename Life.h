@@ -20,7 +20,7 @@ class Cell;
 
 class AbstractCell{
 	protected: 
-		virtual void determineNextState(vector<ConwayCell*> neighbors)=0;
+		virtual void determineNextState(vector<ConwayCell> neighbors)=0;
 		virtual void updateCell()=0;
 		virtual bool isAlive()=0;
 	};
@@ -32,7 +32,7 @@ class ConwayCell: AbstractCell{
 		char image;
 	public:		
 		ConwayCell(bool state=false);
-		void determineNextState(vector<ConwayCell*> neighbors);
+		void determineNextState(vector<ConwayCell> neighbors);
 		void updateCell();
 		bool isAlive();
 		friend std::ostream& operator<<(std::ostream& os, const ConwayCell* cc);
@@ -58,18 +58,17 @@ class Life{
 	private:
 		const int rows;
 		const int cols;
-		vector<ConwayCell*> board;
+		vector<ConwayCell> board;
 		
 	public:
 	    int population;
-		Life(const int& r,const int& c,const vector<ConwayCell*> cells);
+		Life(const int& r,const int& c,const vector<ConwayCell> cells);
 		void runTurn();
 		bool inBounds(int r, int c);
-		vector<ConwayCell*> cellNeighbors(int x, int y);
+		vector<ConwayCell> cellNeighbors(int x, int y);
 		ConwayCell* at(const int& x, const int& y);
-		void printBoard();
-		vector<ConwayCell*>::iterator begin();
-		vector<ConwayCell*>::iterator end();
+		vector<ConwayCell>::iterator begin();
+		vector<ConwayCell>::iterator end();
 		friend std::ostream& operator<<(std::ostream& os, Life& l);
 
 };
