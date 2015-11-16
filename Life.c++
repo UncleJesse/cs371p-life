@@ -79,7 +79,7 @@ void FredkinCell::updateCell(){
 	currentState=nextState;
 	if(currentState){
 		age++;
-		image=(age>10)?'+':(char)age;
+		image=(age>10)?'+':age+'0';
 	}
 	else
 		image ='-';
@@ -200,23 +200,24 @@ void runInput(istream& r, ostream& os){
 			getline(r, freqOut);
 			int frequencyOut = atoi(freqOut.c_str());
 
-			vector<ConwayCell> allCells;
-			for(int currentR=0; currentR<rows; currentR++){
-				string currentRow;
-				getline(r, currentRow);
-				for(int i=0; i<cols; i++){
-					if(currentRow[i]=='.'){
-						ConwayCell temp;
-						allCells.push_back(temp);
-					}
-					else{
-						ConwayCell temp(true);
-						allCells.push_back(temp);
+
+			if(cellType=="ConwayCell"){
+				vector<ConwayCell> allCells;
+				for(int currentR=0; currentR<rows; currentR++){
+					string currentRow;
+					getline(r, currentRow);
+					for(int i=0; i<cols; i++){
+						if(currentRow[i]=='.'){
+							ConwayCell temp;
+							allCells.push_back(temp);
+						}
+						else{
+							ConwayCell temp(true);
+							allCells.push_back(temp);
+						}
 					}
 				}
-			}
-
-			Life<ConwayCell> l(rows,cols,allCells);
+				Life<ConwayCell> l(rows,cols,allCells);
 
 			cout<<"*** Life<"<<cellType<<"> "<<rows<<"x"<<cols<<"***\n"<<endl;
 			for(int currentGen=0; currentGen<=generations; currentGen++){
@@ -225,6 +226,34 @@ void runInput(istream& r, ostream& os){
 					cout<<l<<endl;
 				}
 				l.runTurn();
+			}
+			}
+			else{
+				vector<FredkinCell> allCells;
+				for(int currentR=0; currentR<rows; currentR++){
+					string currentRow;
+					getline(r, currentRow);
+					for(int i=0; i<cols; i++){
+						if(currentRow[i]=='-'){
+							FredkinCell temp;
+							allCells.push_back(temp);
+						}
+						else{
+							FredkinCell temp(true);
+							allCells.push_back(temp);
+						}
+					}
+				}
+				Life<FredkinCell> l(rows,cols,allCells);
+
+			cout<<"*** Life<"<<cellType<<"> "<<rows<<"x"<<cols<<"***\n"<<endl;
+			for(int currentGen=0; currentGen<=generations; currentGen++){
+				if(currentGen%frequencyOut==0){
+					cout<<"Generation = "<<currentGen<<", Population = "<<l.population <<"."<<endl;
+					cout<<l<<endl;
+				}
+				l.runTurn();
+			}			
 			}
 			string nextLine;
 			getline(r,nextLine);

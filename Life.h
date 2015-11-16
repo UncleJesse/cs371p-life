@@ -19,7 +19,7 @@ class Cell;
 
 class AbstractCell{
 	protected:
-		virtual void determineNextState(vector<ConwayCell> neighbors)=0;
+		//virtual void determineNextState(vector<> neighbors);
 		virtual void updateCell()=0;
 		virtual bool isAlive()=0;
 	};
