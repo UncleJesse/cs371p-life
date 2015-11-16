@@ -101,8 +101,26 @@ FredkinCell& FredkinCell::operator= (const FredkinCell &rhs){
 }
 //Cell
 Cell::Cell(char image){
-	
+	if(image=='.' || image=='*'){
+		isFCell=false;
+		_c=new ConwayCell(image);
+	}
+	else{
+		isFCell=true;
+		_c=new FredkinCell(image);
+	}
 }
+Cell::Cell(AbstractCell* &rhs){
+	_c= rhs;
+}
+Cell::~Cell(){
+	delete _c;
+}
+
+AbstractCell* Cell::operator->(){
+	return _c;
+}
+
 
 //RunInput
 void runInput(istream& r, ostream& os){

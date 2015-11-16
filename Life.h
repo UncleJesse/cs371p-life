@@ -24,7 +24,7 @@ class AbstractCell{
 		//virtual void determineNextState(vector<AbstractCell> neighbors);
 	};
 
-class ConwayCell: AbstractCell{
+class ConwayCell: public AbstractCell{
 	private:
 		bool currentState;
 		bool nextState;
@@ -38,7 +38,7 @@ class ConwayCell: AbstractCell{
 		ConwayCell& operator= (const ConwayCell &rhs);
 };
 
-class FredkinCell: AbstractCell{
+class FredkinCell: public AbstractCell{
 	private:
 		bool currentState;
 		bool nextState;
@@ -53,13 +53,18 @@ class FredkinCell: AbstractCell{
 		FredkinCell& operator= (const FredkinCell &rhs);
 };
 
+//If Life is instantiated with Cell, then when a FredkinCell's age is to become 2, and only then, it becomes a live ConwayCell instead.
 class Cell{
 	private:
+		bool isFCell;
 		AbstractCell* _c;
 	public:
 		Cell(char image);
+		Cell(AbstractCell* &rhs);
 		~Cell();
-		Cell* operator->();
+		void updateCell();
+		AbstractCell* operator->();
+
 };
 
 template<class T>
