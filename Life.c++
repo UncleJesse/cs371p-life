@@ -12,14 +12,10 @@ ConwayCell::ConwayCell(char state){
 	nextState=false;
 }
 
-bool ConwayCell::isAlive(){
-	return currentState;
-}
-
-void ConwayCell::determineNextState(vector<ConwayCell> neighbors){
+void ConwayCell::determineNextState(vector<AbstractCell*> neighbors){
 	int numberOfLiveNeighbors=0;
 	for(int i=0; i< (int)neighbors.size(); i++){
-		if(neighbors[i].isAlive())
+		if(neighbors[i]!=nullptr && neighbors[i]->isAlive())
 			numberOfLiveNeighbors++;
 	}
 	if(currentState==false && numberOfLiveNeighbors==3){
@@ -36,6 +32,10 @@ void ConwayCell::determineNextState(vector<ConwayCell> neighbors){
 void ConwayCell::updateCell(){
 	currentState=nextState;
 	image= nextState?'*':'.';
+}
+
+bool ConwayCell::isAlive(){
+	return currentState;
 }
 
 std::ostream& operator << (std::ostream& os, const ConwayCell* cc){
@@ -57,11 +57,11 @@ FredkinCell::FredkinCell(char state){
 	nextState=false;
 }
 
-void FredkinCell::determineNextState(vector<FredkinCell> neighbors){
+void FredkinCell::determineNextState(vector<AbstractCell*> neighbors){
 	//a live cell becomes a dead cell, if 0, 2, or 4 neighbors are alive
 	int numberOfLiveNeighbors=0;
 	for(int i=1; i< (int)neighbors.size(); i+=2){
-		if(neighbors[i].isAlive())
+		if(neighbors[i]!=nullptr && neighbors[i]->isAlive())
 			numberOfLiveNeighbors++;
 	}
 	if(currentState==false && (numberOfLiveNeighbors==1 || numberOfLiveNeighbors==3)){
@@ -85,6 +85,7 @@ void FredkinCell::updateCell(){
 		image ='-';
 
 }
+
 bool FredkinCell::isAlive(){
 	return currentState;
 }
@@ -100,7 +101,7 @@ FredkinCell& FredkinCell::operator= (const FredkinCell &rhs){
 	return *this;
 }
 //Cell
-Cell::Cell(char image){
+/*Cell::Cell(char image){
 	if(image=='.' || image=='*'){
 		isFCell=false;
 		_c=new ConwayCell(image);
@@ -120,9 +121,39 @@ Cell::~Cell(){
 AbstractCell* Cell::operator->(){
 	return _c;
 }
+void Cell::updateCell(){
+	if(isFCell && reinterpret_cast<FredkinCell*>(_c)->age==2){
+		delete _c;
+		_c=new ConwayCell('*');
+	}
+	else if(isFCell){
+		reinterpret_cast<FredkinCell*>(_c)->updateCell();
+	}
+	else{
+		reinterpret_cast<ConwayCell*>(_c)->updateCell();
+	} 
+}
 
+void Cell::determineNextState(vector<Cell> neighbors){
+	if(isFCell){
+		reinterpret_cast<FredkinCell*>(_c)->determineNextState();
+	}
+	else{
+		reinterpret_cast<ConwayCell*>(_c)->determineNextState();
+	} 
+}
+
+bool Cell::isAlive(){
+	if(isFCell){
+		return reinterpret_cast<FredkinCell*>(_c)->isAlive();
+	}
+	else{
+		return reinterpret_cast<ConwayCell*>(_c)->isAlive();
+	} 	
+}*/
 
 //RunInput
+
 void runInput(istream& r, ostream& os){
 		while(!r.eof()){
 			string cellType;
@@ -160,10 +191,11 @@ void runInput(istream& r, ostream& os){
 				for(int currentGen=0; currentGen<=generations; currentGen++){
 					if(currentGen%frequencyOut==0){
 						cout<<l<<endl;
-					}
-					l.runTurn();
+					}					
+					l.runTurn();		
 				}
 			}
+			/*
 			else if(cellType=="FredkinCell"){
 				vector<FredkinCell> allCells;
 				for(int currentR=0; currentR<rows; currentR++){
@@ -182,7 +214,7 @@ void runInput(istream& r, ostream& os){
 					}
 					l.runTurn();
 				}		
-			}		
+			}*/				
 			string nextLine;
 			getline(r,nextLine);
 	}

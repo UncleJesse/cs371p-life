@@ -18,10 +18,11 @@ class FredkinCell;
 class Cell;
 
 class AbstractCell{
-	protected:
+public:
 		virtual void updateCell()=0;
 		virtual bool isAlive()=0;
-		//virtual void determineNextState(vector<AbstractCell> neighbors);
+		virtual ~AbstractCell(){};
+		virtual void determineNextState(vector<AbstractCell*>)=0;
 	};
 
 class ConwayCell: public AbstractCell{
@@ -31,7 +32,7 @@ class ConwayCell: public AbstractCell{
 		char image;
 	public:
 		ConwayCell(char state='.');
-		void determineNextState(vector<ConwayCell> neighbors);
+		void determineNextState(vector<AbstractCell*> neighbors);
 		void updateCell();
 		bool isAlive();
 		friend std::ostream& operator<<(std::ostream& os, const ConwayCell* cc);
@@ -39,6 +40,7 @@ class ConwayCell: public AbstractCell{
 };
 
 class FredkinCell: public AbstractCell{
+	friend class Cell;
 	private:
 		bool currentState;
 		bool nextState;
@@ -46,7 +48,7 @@ class FredkinCell: public AbstractCell{
 		int age;
 	public:
 		FredkinCell(char state='-');
-		void determineNextState(vector<FredkinCell> neighbors);
+		void determineNextState(vector<AbstractCell*> neighbors);
 		void updateCell();
 		bool isAlive();
 		friend std::ostream& operator<<(std::ostream& os, const FredkinCell* cc);
@@ -54,7 +56,7 @@ class FredkinCell: public AbstractCell{
 };
 
 //If Life is instantiated with Cell, then when a FredkinCell's age is to become 2, and only then, it becomes a live ConwayCell instead.
-class Cell{
+/*class Cell{
 	private:
 		bool isFCell;
 		AbstractCell* _c;
@@ -63,9 +65,11 @@ class Cell{
 		Cell(AbstractCell* &rhs);
 		~Cell();
 		void updateCell();
+		void determineNextState(vector<Cell> neighbors);
+		bool isAlive();
 		AbstractCell* operator->();
 
-};
+};*/
 
 template<class T>
 class Life{
@@ -91,7 +95,7 @@ class Life{
 			currentGen++;
 			for(int r=0; r<rows; r++){
 				for(int c=0; c<cols; c++){
-					vector<T> temp=cellNeighbors(r,c);
+					vector<AbstractCell*> temp=cellNeighbors(r,c);	
 					at(r,c)->determineNextState(temp);
 				}
 			}
@@ -106,14 +110,14 @@ class Life{
 		bool inBounds(int r,int c){
 			return (r<rows) && (r>=0) && (c<cols) && (c>=0);
 		}
-		vector<T> cellNeighbors(int x, int y){
-			vector<T> neighbors(9);
+		vector<AbstractCell*> cellNeighbors(int x, int y){
+			vector<AbstractCell*> neighbors(9);
 			int vectorIndex=0;
 			for(int r=(x-1); r<=x+1; r++){
 				for(int c=(y-1); c<=y+1; c++){
 					{
-						if(!(r==x && c==y) && Life::inBounds(r,c))
-							neighbors[vectorIndex]=*Life::at(r,c);
+						if(!(r==x && c==y) && inBounds(r,c))
+							neighbors[vectorIndex]=at(r,c);
 						vectorIndex++;
 					}
 				}
