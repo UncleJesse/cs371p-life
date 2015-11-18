@@ -77,6 +77,9 @@ void FredkinCell::determineNextState(vector<AbstractCell*> neighbors){
 	}
 	else if(currentState==true && (numberOfLiveNeighbors==2 ||numberOfLiveNeighbors==4 || numberOfLiveNeighbors==0) ){
 		nextState=false;
+	}else if(currentState==true && (numberOfLiveNeighbors==1 || numberOfLiveNeighbors==3)){
+		nextState=currentState;
+		age++;
 	}
 	else{
 		nextState=currentState;
@@ -87,7 +90,6 @@ void FredkinCell::updateCell(){
 	currentState=nextState;
 	if(currentState){
 		image=(age>=10)?'+':age+'0';
-		age++;
 	}
 	else
 		image ='-';
