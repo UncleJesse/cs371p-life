@@ -136,30 +136,17 @@ void Cell::updateCell(){
 		delete _c;
 		_c=new ConwayCell('*');
 	}
-	else if(isFCell){
-		reinterpret_cast<FredkinCell*>(_c)->updateCell();
-	}
 	else{
-		reinterpret_cast<ConwayCell*>(_c)->updateCell();
+		_c->updateCell();
 	} 
 }
 
 void Cell::determineNextState(vector<AbstractCell*> neighbors){
-	if(isFCell){
-		reinterpret_cast<FredkinCell*>(_c)->determineNextState(neighbors);
-	}
-	else{
-		reinterpret_cast<ConwayCell*>(_c)->determineNextState(neighbors);
-	} 
+	_c->determineNextState(neighbors);
 }
 
 bool Cell::isAlive(){
-	if(isFCell){
-		return reinterpret_cast<FredkinCell*>(_c)->isAlive();
-	}
-	else{
-		return reinterpret_cast<ConwayCell*>(_c)->isAlive();
-	} 	
+	return _c->isAlive();
 }
 
 Cell& Cell::operator= (Cell const &c){
