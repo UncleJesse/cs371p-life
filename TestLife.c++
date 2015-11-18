@@ -230,8 +230,6 @@ using namespace std;
  	ASSERT_FALSE(x.isAlive());
  }
 
-
-
  TEST(Test_Life, Life_constructor1){
  	vector<ConwayCell> v;
 	ConwayCell a('*');
@@ -274,7 +272,7 @@ using namespace std;
 	f.push_back(o);
 	f.push_back(p);
  	Life<FredkinCell> li(4, 8, f);
- 	ASSERT_TRUE(li.board.size() == 32);
+ 	ASSERT_TRUE(li.board.size() == 8);
  	ASSERT_EQ(li.population, 4);
  }
 
@@ -297,7 +295,7 @@ using namespace std;
 	v.push_back(g);
 	v.push_back(h);
  	Life<Cell> l(5, 5, v);
- 	ASSERT_TRUE(l.board.size() == 25);
+ 	ASSERT_TRUE(l.board.size() == 8);
  }
 /*
  TEST(Test_Life, runTurn1){
