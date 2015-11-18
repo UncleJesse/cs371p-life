@@ -1,13 +1,16 @@
-FILES :=                                 \
-    .travis.yml                          \
-    life-tests/jem74-RunLife.in     \
-    life-tests/jem74-RunLife.out    \
-    life-tests/jem74-TestLife.c++   \
-    life-tests/jem74-TestLife.out   \
+FILES :=                               \
+	.gitignore						   \
+    .travis.yml                        \
+    makefile                           \
+    life-tests/jem74-RunLife.in        \
+    life-tests/jem74-RunLife.out       \
+    life-tests/jem74-TestLife.c++      \
+    life-tests/jem74-TestLife.out      \
     Life.c++                           \
     Life.h                             \
     Life.log                           \
-    html                                 \
+    Life.pdh						   \
+    html                               \
     RunLife.c++                        \
     RunLife.in                         \
     RunLife.out                        \
