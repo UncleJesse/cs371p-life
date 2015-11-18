@@ -27,6 +27,7 @@ class AbstractCell{
 	};
 
 class ConwayCell: public AbstractCell{
+	friend class Cell;
 	private:
 		bool currentState;
 		bool nextState;
@@ -58,17 +59,20 @@ class FredkinCell: public AbstractCell{
 		FredkinCell& operator= (const FredkinCell &rhs);
 };
 
-class Cell{
+class Cell: public AbstractCell{
 	private:
 		bool isFCell;
 		AbstractCell* _c;
 	public:
-		Cell(char image);
+		Cell(char image='.');
 		Cell(Cell const &c);
 		~Cell();
+		virtual Cell* clone() const;
 		void updateCell();
 		void determineNextState(vector<AbstractCell*> neighbors);
 		bool isAlive();
+		string toString();
+		friend std::ostream& operator<<(std::ostream& os, const Cell* c);
 		Cell& operator= (Cell const &c);
 };
 
@@ -82,11 +86,11 @@ class Life{
 		int currentGen;
 
 	public:
-		Life(const int& r,const int& c,const vector<T> cells): rows(r), cols(c),board(r * c){
+		Life(const int& r,const int& c,const vector<T> cells): rows(r), cols(c),board(0){
 			population=0;
 			currentGen=0;
 			for(int i=0; i<(int)cells.size(); i++){
-				board[i]=cells[i];
+				board.push_back(cells[i]);
 				if(board.at(i).isAlive())
 					population++;
 			}

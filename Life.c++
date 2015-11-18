@@ -127,42 +127,46 @@ Cell::~Cell(){
 	delete _c;
 }
 
+Cell* Cell::clone() const{
+	return new Cell(*this);
+}
+
 void Cell::updateCell(){
 	if(isFCell && reinterpret_cast<FredkinCell*>(_c)->age==2){
 		delete _c;
 		_c=new ConwayCell('*');
 	}
-	else if(isFCell){
-		reinterpret_cast<FredkinCell*>(_c)->updateCell();
-	}
 	else{
-		reinterpret_cast<ConwayCell*>(_c)->updateCell();
+		_c->updateCell();
 	} 
 }
 
 void Cell::determineNextState(vector<AbstractCell*> neighbors){
-	if(isFCell){
-		reinterpret_cast<FredkinCell*>(_c)->determineNextState(neighbors);
-	}
-	else{
-		reinterpret_cast<ConwayCell*>(_c)->determineNextState(neighbors);
-	} 
+	_c->determineNextState(neighbors);
 }
 
 bool Cell::isAlive(){
-	if(isFCell){
-		return reinterpret_cast<FredkinCell*>(_c)->isAlive();
-	}
-	else{
-		return reinterpret_cast<ConwayCell*>(_c)->isAlive();
-	} 	
+	return _c->isAlive();
 }
 
 Cell& Cell::operator= (Cell const &c){
 	isFCell=c.isFCell;
 	delete _c;
-	_c=c._c;
+	_c= c._c;
 	return *this;
+}
+
+string Cell::toString(){
+	string s;
+	if(isFCell)
+		s=reinterpret_cast<FredkinCell*>(_c)->image;
+	else
+		s=reinterpret_cast<ConwayCell*>(_c)->image;
+	return s;
+}
+
+ostream& operator<<(std::ostream& os, Cell* c){
+	return os << c->toString();
 }
 
 
@@ -236,18 +240,17 @@ void runInput(istream& r, ostream& os){
 					getline(r, currentRow);
 					for(int i=0; i<cols; i++){
 						Cell temp(currentRow[i]);
-						//allCells.push_back(temp);
+						allCells.push_back(temp);
 					}
 				}
-				
-				/*Life<Cell> l(rows,cols,allCells);	
-				//cout<<"*** Life<"<<cellType<<"> "<<rows<<"x"<<cols<<"***\n"<<endl;
+				Life<Cell> l(rows,cols,allCells);	
+				cout<<"*** Life<"<<cellType<<"> "<<rows<<"x"<<cols<<"***\n"<<endl;
 				for(int currentGen=0; currentGen<=generations; currentGen++){
 					if(currentGen%frequencyOut==0){
-						//cout<<l<<endl;
+						cout<<l<<endl;
 					}
 					l.runTurn();
-				}*/		
+				}		
 			}					
 			string nextLine;
 			getline(r,nextLine);
