@@ -18,11 +18,12 @@ class FredkinCell;
 class Cell;
 
 class AbstractCell{
-public:
+	public:
 		virtual void updateCell()=0;
 		virtual bool isAlive()=0;
 		virtual ~AbstractCell(){};
 		virtual void determineNextState(vector<AbstractCell*>)=0;
+		virtual AbstractCell* clone() const=0;
 	};
 
 class ConwayCell: public AbstractCell{
@@ -32,6 +33,7 @@ class ConwayCell: public AbstractCell{
 		char image;
 	public:
 		ConwayCell(char state='.');
+		virtual ConwayCell* clone() const;
 		void determineNextState(vector<AbstractCell*> neighbors);
 		void updateCell();
 		bool isAlive();
@@ -48,6 +50,7 @@ class FredkinCell: public AbstractCell{
 		int age;
 	public:
 		FredkinCell(char state='-');
+		virtual FredkinCell* clone() const;
 		void determineNextState(vector<AbstractCell*> neighbors);
 		void updateCell();
 		bool isAlive();
@@ -55,21 +58,19 @@ class FredkinCell: public AbstractCell{
 		FredkinCell& operator= (const FredkinCell &rhs);
 };
 
-//If Life is instantiated with Cell, then when a FredkinCell's age is to become 2, and only then, it becomes a live ConwayCell instead.
-/*class Cell{
+class Cell{
 	private:
 		bool isFCell;
 		AbstractCell* _c;
 	public:
 		Cell(char image);
-		Cell(AbstractCell* &rhs);
+		Cell(Cell const &c);
 		~Cell();
 		void updateCell();
-		void determineNextState(vector<Cell> neighbors);
+		void determineNextState(vector<AbstractCell*> neighbors);
 		bool isAlive();
-		AbstractCell* operator->();
-
-};*/
+		Cell& operator= (Cell const &c);
+};
 
 template<class T>
 class Life{

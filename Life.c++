@@ -12,6 +12,10 @@ ConwayCell::ConwayCell(char state){
 	nextState=false;
 }
 
+ConwayCell* ConwayCell::clone() const{
+	return new ConwayCell(*this);
+}
+
 void ConwayCell::determineNextState(vector<AbstractCell*> neighbors){
 	int numberOfLiveNeighbors=0;
 	for(int i=0; i< (int)neighbors.size(); i++){
@@ -57,6 +61,10 @@ FredkinCell::FredkinCell(char state){
 	nextState=false;
 }
 
+FredkinCell* FredkinCell::clone() const{
+	return new FredkinCell(*this);
+}
+
 void FredkinCell::determineNextState(vector<AbstractCell*> neighbors){
 	//a live cell becomes a dead cell, if 0, 2, or 4 neighbors are alive
 	int numberOfLiveNeighbors=0;
@@ -78,7 +86,7 @@ void FredkinCell::determineNextState(vector<AbstractCell*> neighbors){
 void FredkinCell::updateCell(){
 	currentState=nextState;
 	if(currentState){
-		image=(age>10)?'+':age+'0';
+		image=(age>=10)?'+':age+'0';
 		age++;
 	}
 	else
@@ -101,7 +109,7 @@ FredkinCell& FredkinCell::operator= (const FredkinCell &rhs){
 	return *this;
 }
 //Cell
-/*Cell::Cell(char image){
+Cell::Cell(char image){
 	if(image=='.' || image=='*'){
 		isFCell=false;
 		_c=new ConwayCell(image);
@@ -111,16 +119,14 @@ FredkinCell& FredkinCell::operator= (const FredkinCell &rhs){
 		_c=new FredkinCell(image);
 	}
 }
-Cell::Cell(AbstractCell* &rhs){
-	_c= rhs;
+Cell::Cell(Cell const &c): _c(c._c->clone()){
+	isFCell=true;
 }
+
 Cell::~Cell(){
 	delete _c;
 }
 
-AbstractCell* Cell::operator->(){
-	return _c;
-}
 void Cell::updateCell(){
 	if(isFCell && reinterpret_cast<FredkinCell*>(_c)->age==2){
 		delete _c;
@@ -134,12 +140,12 @@ void Cell::updateCell(){
 	} 
 }
 
-void Cell::determineNextState(vector<Cell> neighbors){
+void Cell::determineNextState(vector<AbstractCell*> neighbors){
 	if(isFCell){
-		reinterpret_cast<FredkinCell*>(_c)->determineNextState();
+		reinterpret_cast<FredkinCell*>(_c)->determineNextState(neighbors);
 	}
 	else{
-		reinterpret_cast<ConwayCell*>(_c)->determineNextState();
+		reinterpret_cast<ConwayCell*>(_c)->determineNextState(neighbors);
 	} 
 }
 
@@ -150,7 +156,15 @@ bool Cell::isAlive(){
 	else{
 		return reinterpret_cast<ConwayCell*>(_c)->isAlive();
 	} 	
-}*/
+}
+
+Cell& Cell::operator= (Cell const &c){
+	isFCell=c.isFCell;
+	delete _c;
+	_c=c._c;
+	return *this;
+}
+
 
 //RunInput
 
@@ -195,7 +209,7 @@ void runInput(istream& r, ostream& os){
 					l.runTurn();		
 				}
 			}
-			/*
+			
 			else if(cellType=="FredkinCell"){
 				vector<FredkinCell> allCells;
 				for(int currentR=0; currentR<rows; currentR++){
@@ -214,7 +228,27 @@ void runInput(istream& r, ostream& os){
 					}
 					l.runTurn();
 				}		
-			}*/				
+			}
+			else if(cellType=="Cell"){
+				vector<Cell> allCells;
+				for(int currentR=0; currentR<rows; currentR++){
+					string currentRow;
+					getline(r, currentRow);
+					for(int i=0; i<cols; i++){
+						Cell temp(currentRow[i]);
+						//allCells.push_back(temp);
+					}
+				}
+				
+				/*Life<Cell> l(rows,cols,allCells);	
+				//cout<<"*** Life<"<<cellType<<"> "<<rows<<"x"<<cols<<"***\n"<<endl;
+				for(int currentGen=0; currentGen<=generations; currentGen++){
+					if(currentGen%frequencyOut==0){
+						//cout<<l<<endl;
+					}
+					l.runTurn();
+				}*/		
+			}					
 			string nextLine;
 			getline(r,nextLine);
 	}
