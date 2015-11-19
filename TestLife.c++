@@ -51,8 +51,12 @@ using namespace std;
  	x.determineNextState(v); 
  	ASSERT_TRUE(x.isAlive());
  	ASSERT_FALSE(x.nextState);
+ 	
+ 	for(int i=0; i<v.size(); i++){
+ 		delete v[i];
+ 	}
  }
-
+/*
  TEST(Test_ConwayCell, CC_determineNextState2) {
  	ConwayCell x('*');
  	vector<AbstractCell*> v;
@@ -89,6 +93,7 @@ using namespace std;
  	ASSERT_TRUE(x.currentState);
  	ASSERT_TRUE(x.nextState);
  }
+
 
  TEST(Test_ConwayCell, CC_updateCell1) {
  	ConwayCell x('*');
@@ -393,7 +398,7 @@ using namespace std;
  	}
  	ASSERT_EQ(liveNeighbors, 4);
  }*/
-
+/*
  TEST(Test_Life, inBounds1){
  	vector<ConwayCell> v;
 	for(int i=0; i<9; i++){

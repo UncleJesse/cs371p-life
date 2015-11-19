@@ -257,7 +257,8 @@ bool Cell::isAlive(){
  */
 Cell& Cell::operator= (Cell const &c){
 	isFCell=c.isFCell;
-	delete _c;
+	if(_c!=nullptr)
+		delete _c;
 	_c= c._c;
 	return *this;
 }
