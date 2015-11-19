@@ -77,7 +77,7 @@ life-tests:
 html: Doxyfile Life.h Life.c++ RunLife.c++ TestLife.c++
 	doxygen Doxyfile
 
-Life.log:
+log:
 	git log > Life.log
 
 Doxyfile:
@@ -94,8 +94,8 @@ TestLife: Life.h Life.c++ TestLife.c++
 	$(CXX) $(CXXFLAGS) $(GCOVFLAGS) Life.c++ TestLife.c++ -o TestLife $(LDFLAGS)
 
 TestLife.tmp: TestLife
-	$(VALGRIND) ./TestLife
+	$(VALGRIND) ./TestLife																		>  TestLife.tmp 2>&1
 	$(GCOV) -b Life.c++     | grep -A 5 "File 'Life.c++'"     >> TestLife.tmp
 	$(GCOV) -b TestLife.c++ | grep -A 5 "File 'TestLife.c++'" >> TestLife.tmp
-	diff TestLife.tmp TestLife.out
+	cat TestLife.tmp
 
