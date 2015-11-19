@@ -1,13 +1,15 @@
-FILES :=                                 \
-    .travis.yml                          \
-    life-tests/jjv722-RunLife.in     \
-    life-tests/mfa476-RunLife.out    \
-    life-tests/mfa476-TestLife.c++   \
-    life-tests/mfa476-TestLife.out   \
+FILES :=                               \
+	.gitignore						   \
+    .travis.yml                        \
+    makefile                           \
+    life-tests/jem74-RunLife.in        \
+    life-tests/jem74-RunLife.out       \
+    life-tests/jem74-TestLife.c++      \
+    life-tests/jem74-TestLife.out      \
     Life.c++                           \
     Life.h                             \
     Life.log                           \
-    html                                 \
+    html                               \
     RunLife.c++                        \
     RunLife.in                         \
     RunLife.out                        \
@@ -19,11 +21,9 @@ CXXFLAGS   := -pedantic -std=c++11 -Wall
 LDFLAGS    := -lgtest -lgtest_main -pthread
 GCOV       := gcov-4.8
 GCOVFLAGS  := -fprofile-arcs -ftest-coverage
-GPROF      := gprof
-GPROFFLAGS := -pg
 VALGRIND   := valgrind
 
-check:
+check: life-tests
 	@not_found=0;                                 \
     for i in $(FILES);                            \
     do                                            \

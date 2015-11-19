@@ -259,7 +259,7 @@ Cell& Cell::operator= (Cell const &c){
 	isFCell=c.isFCell;
 	if(_c!=nullptr)
 		delete _c;
-	_c= c._c;
+	_c= c.clone();
 	return *this;
 }
 
