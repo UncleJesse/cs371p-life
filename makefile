@@ -9,6 +9,7 @@ FILES :=                               \
     Life.c++                           \
     Life.h                             \
     Life.log                           \
+    Life.pdf						   \
     html                               \
     RunLife.c++                        \
     RunLife.in                         \
