@@ -1,0 +1,255 @@
+commit 9633496583074c4ca016031653311f7f9d194852
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Thu Nov 19 00:00:25 2015 -0600
+
+    Should fix travis now
+
+commit ef3e21462ac3b97a90bc0ad05d6495674c65e469
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Wed Nov 18 23:57:22 2015 -0600
+
+    Fixed travis build.
+
+commit defc1f9922905bda016a72592dd01bfc3c9e8f65
+Author: unclejesse <unclejesse@utexas.edu>
+Date:   Wed Nov 18 20:55:51 2015 -0600
+
+    finished uml diagram
+
+commit 169372e93fcc500640fd0931959da1c7ed5d59de
+Author: unclejesse <unclejesse@utexas.edu>
+Date:   Wed Nov 18 20:27:35 2015 -0600
+
+    working on uml
+
+commit ed1ea8163a38a1f0847491eda268e943174c0304
+Merge: 672ba23 809181e
+Author: unclejesse <unclejesse@utexas.edu>
+Date:   Wed Nov 18 20:08:10 2015 -0600
+
+    almost done
+
+commit 809181e8002bd8358009b22091a787ba23f0eb3e
+Author: unclejesse <unclejesse@utexas.edu>
+Date:   Wed Nov 18 20:06:53 2015 -0600
+
+    fixes #13, fixes #14, fixes #15, fixes #17
+
+commit a14d04fba8590191a32db4036c2fe1918b6d676c
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Wed Nov 18 20:01:31 2015 -0600
+
+    Changes in Life
+
+commit 672ba23363ca74566a3a0962508fae0978e1cd88
+Author: unclejesse <unclejesse@utexas.edu>
+Date:   Wed Nov 18 19:45:52 2015 -0600
+
+    writing more tests, changed Life.c++ slightly
+
+commit dfe215dc21c23ea13cd1d5772efab00d03c31c72
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Wed Nov 18 18:00:38 2015 -0600
+
+    Closes #18. Closes #11. Closes #8. Closes #7.Closes #6. Closes #5. Closes #4. Closes #2.
+
+commit bbb77047887e73b8c5fc5fcef0fb03bcd482a88b
+Author: unclejesse <unclejesse@utexas.edu>
+Date:   Wed Nov 18 17:17:14 2015 -0600
+
+    checking travis
+
+commit ba9ab1fbfed1e9052d105fdeb5a7f3fa0cdb887c
+Author: unclejesse <unclejesse@utexas.edu>
+Date:   Wed Nov 18 17:12:46 2015 -0600
+
+    checking travis
+
+commit 7e99835cebfc49dfce95abefb3a37dd41d4dc415
+Author: unclejesse <unclejesse@utexas.edu>
+Date:   Wed Nov 18 17:06:40 2015 -0600
+
+    checking travis
+
+commit f3850b0781ea6bd8fbaa160df976416c2fe1c6dc
+Author: unclejesse <unclejesse@utexas.edu>
+Date:   Wed Nov 18 17:04:08 2015 -0600
+
+    changed makefile
+
+commit bece8f92341b094452279d363cd4664825d5baad
+Author: unclejesse <unclejesse@utexas.edu>
+Date:   Wed Nov 18 16:57:52 2015 -0600
+
+    wrote some comments in .h file, added some input to RunLife.in, writing more unit tests, fixes # 18
+
+commit 4936a0ed88b54ae9a23e13198679d9a6a5f6cce6
+Merge: a26b06b 184c8d9
+Author: unclejesse <unclejesse@utexas.edu>
+Date:   Tue Nov 17 21:37:27 2015 -0600
+
+    runlife
+
+commit 184c8d93f0f931005aa73fc23ca4ff7e1c0a73a1
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Tue Nov 17 21:27:37 2015 -0600
+
+    Cleaning up code
+
+commit 33efca92a66d87b5caacc9ee3f87a265a0d24744
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Tue Nov 17 21:21:38 2015 -0600
+
+    Practically Finished
+
+commit a26b06bdc40b672c0fffe040f746cb60661efed2
+Author: unclejesse <unclejesse@utexas.edu>
+Date:   Tue Nov 17 18:36:23 2015 -0600
+
+    wrote some input in Run.in, fixed unit tests, fixes #16, fixes #12, fixes #10, fixes #9
+
+commit 4692d5fb56e89a5549a3b343ed982fdd7a882e95
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Tue Nov 17 18:33:07 2015 -0600
+
+    Trying to get Cell to work
+
+commit 787b311525b2700c0704cdf8e703da1426b24de0
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Tue Nov 17 17:15:32 2015 -0600
+
+    AbstractCell used for all
+
+commit 4fc8678c2c437d164451db6de342c343e873d7d9
+Merge: 7547867 b393070
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Mon Nov 16 17:21:53 2015 -0600
+
+    Merge branch 'dev' of https://github.com/UncleJesse/cs371p-life into dev
+
+commit 75478671031d496dc6acd25e80dba3da656b50b3
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Mon Nov 16 17:21:30 2015 -0600
+
+    Working on Cell still
+
+commit b39307038886eaf3805438b61943d2b9c86e10fe
+Author: UncleJesse <unclejesse@utexas.edu>
+Date:   Mon Nov 16 16:36:51 2015 -0600
+
+    Delete Life
+
+commit 6f51f9570a521d9121393f489b210c453f6e1795
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Mon Nov 16 16:34:53 2015 -0600
+
+    Working on Cell
+
+commit 57bd0b242e66cba89a9b734d5ab2ddb5b909dc64
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Mon Nov 16 12:35:32 2015 -0600
+
+    Need to fix age in Fredkin
+
+commit 23e489e84dea8474177fb09a2280e88874852a63
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Sun Nov 15 23:43:07 2015 -0600
+
+    templates now working :)
+
+commit 4c8c37dc820925b2d0c29859a63de529c7012efe
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Sun Nov 15 18:35:07 2015 -0600
+
+    Fredkin cell implementation working
+
+commit 1b41c9df436101fc6b9a9b0ab6de62583b481b46
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Sun Nov 15 18:20:02 2015 -0600
+
+    Got rid of New
+
+commit 3a5c5a1f58f127405b9504c66f1bc41ec567907a
+Merge: cf26414 9480dee
+Author: unclejesse <unclejesse@utexas.edu>
+Date:   Sun Nov 15 17:19:57 2015 -0600
+
+    Closes #3, #7, #8
+
+commit cf2641462c5b745a27a83d4d5a5d95338295c62d
+Author: unclejesse <unclejesse@utexas.edu>
+Date:   Sun Nov 15 17:16:45 2015 -0600
+
+    Conway cell finished
+
+commit 9480deea74adc03a6549932910c23d15b79707b7
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Sat Nov 14 20:52:48 2015 -0600
+
+    Add not working
+
+commit 1d3501e02a0af45866b052b4aa18a1baddc3cf1b
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Sat Nov 14 20:38:06 2015 -0600
+
+    Fixing overloading output operator
+
+commit 130a16dc7cea7fdf33efda9712784d9b7ae81084
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Sat Nov 14 19:09:12 2015 -0600
+
+    Fixing constructor
+
+commit 3168e2e8bcfe52ecb3d7ba43f019fc40405d659e
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Sat Nov 14 18:26:34 2015 -0600
+
+    Runnin output
+
+commit 837b09fa3b1d254c1aa64342447d0a2d9564aabd
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Sat Nov 14 16:23:40 2015 -0600
+
+    Fixed ConwayCell constructor
+
+commit fca9dd985d9356d63e28145897bd4161c48caf29
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Sat Nov 14 15:28:35 2015 -0600
+
+    ConwayCell almost done
+
+commit e75cffd1df105355c8c443d0bf9505608ba26a65
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Fri Nov 13 18:47:10 2015 -0600
+
+    Continued fixing conway
+
+commit 2370dc09962956b39ae4b982dc9647c15824753e
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Fri Nov 13 17:10:34 2015 -0600
+
+    Working on Conway Cell
+
+commit eeaeffe3d94f3e2528d1135ace6ea0753d4f42ea
+Author: unclejesse <unclejesse@utexas.edu>
+Date:   Wed Nov 11 18:32:42 2015 -0600
+
+    got started
+
+commit 4a4df407d4f49de9552ba86e74250ae98bf289c8
+Author: unclejesse <unclejesse@utexas.edu>
+Date:   Wed Nov 11 17:46:50 2015 -0600
+
+    made some files
+
+commit fc5d688aa36aa952f4e87fb21f14b6adcfc089e0
+Author: jjv722 <j_villegsa5@utexas.edu>
+Date:   Wed Nov 11 17:35:44 2015 -0600
+
+    YML, Makefile, .gitignore ready. Closes #1
+
+commit 1b82c0e765b85f102263bb2c28ca5f1b38fe41ad
+Author: UncleJesse <unclejesse@utexas.edu>
+Date:   Mon Nov 9 15:24:11 2015 -0600
+
+    Initial commit
