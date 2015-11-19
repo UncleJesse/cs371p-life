@@ -257,12 +257,8 @@ bool Cell::isAlive(){
  */
 Cell& Cell::operator= (Cell const &c){
 	isFCell=c.isFCell;
-<<<<<<< HEAD
-	delete _c;
-=======
 	if(_c!=nullptr)
 		delete _c;
->>>>>>> master
 	_c= c.clone();
 	return *this;
 }
