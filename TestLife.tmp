@@ -1,0 +1,192 @@
+File 'Life.c++'
+Lines executed:46.93% of 179
+Branches executed:31.30% of 262
+Taken at least once:24.43% of 262
+Calls executed:20.57% of 175
+Creating 'Life.c++.gcov'
+File 'TestLife.c++'
+Lines executed:100.00% of 530
+Branches executed:69.95% of 2636
+Taken at least once:36.68% of 2636
+Calls executed:50.31% of 2747
+Creating 'TestLife.c++.gcov'
+File 'Life.c++'
+Lines executed:46.93% of 179
+Branches executed:31.30% of 262
+Taken at least once:24.43% of 262
+Calls executed:20.57% of 175
+Creating 'Life.c++.gcov'
+File 'TestLife.c++'
+Lines executed:100.00% of 530
+Branches executed:69.95% of 2636
+Taken at least once:36.68% of 2636
+Calls executed:50.31% of 2747
+Creating 'TestLife.c++.gcov'
+File 'Life.c++'
+Lines executed:46.93% of 179
+Branches executed:31.30% of 262
+Taken at least once:24.43% of 262
+Calls executed:20.57% of 175
+Creating 'Life.c++.gcov'
+File 'TestLife.c++'
+Lines executed:100.00% of 546
+Branches executed:70.16% of 2708
+Taken at least once:36.82% of 2708
+Calls executed:50.48% of 2825
+Creating 'TestLife.c++.gcov'
+File 'Life.c++'
+Lines executed:46.93% of 179
+Branches executed:31.30% of 262
+Taken at least once:24.43% of 262
+Calls executed:20.57% of 175
+Creating 'Life.c++.gcov'
+File 'TestLife.c++'
+Lines executed:100.00% of 558
+Branches executed:70.28% of 2746
+Taken at least once:36.89% of 2746
+Calls executed:50.82% of 2883
+Creating 'TestLife.c++.gcov'
+File 'Life.c++'
+Lines executed:46.93% of 179
+Branches executed:31.30% of 262
+Taken at least once:24.43% of 262
+Calls executed:20.57% of 175
+Creating 'Life.c++.gcov'
+File 'TestLife.c++'
+Lines executed:100.00% of 573
+Branches executed:70.39% of 2810
+Taken at least once:36.98% of 2810
+Calls executed:50.76% of 2945
+Creating 'TestLife.c++.gcov'
+File 'Life.c++'
+Lines executed:46.93% of 179
+Branches executed:31.30% of 262
+Taken at least once:24.43% of 262
+Calls executed:20.57% of 175
+Creating 'Life.c++.gcov'
+File 'TestLife.c++'
+Lines executed:100.00% of 605
+Branches executed:70.70% of 2922
+Taken at least once:37.17% of 2922
+Calls executed:51.11% of 3070
+Creating 'TestLife.c++.gcov'
+File 'Life.c++'
+Lines executed:49.72% of 179
+Branches executed:31.30% of 262
+Taken at least once:24.43% of 262
+Calls executed:20.57% of 175
+Creating 'Life.c++.gcov'
+File 'TestLife.c++'
+Lines executed:100.00% of 610
+Branches executed:70.71% of 2950
+Taken at least once:37.15% of 2950
+Calls executed:51.13% of 3102
+Creating 'TestLife.c++.gcov'
+File 'Life.c++'
+Lines executed:49.72% of 179
+Branches executed:31.30% of 262
+Taken at least once:24.43% of 262
+Calls executed:20.57% of 175
+Creating 'Life.c++.gcov'
+File 'TestLife.c++'
+Lines executed:100.00% of 620
+Branches executed:70.71% of 3004
+Taken at least once:37.12% of 3004
+Calls executed:51.15% of 3165
+Creating 'TestLife.c++.gcov'
+File 'Life.c++'
+Lines executed:49.72% of 179
+Branches executed:31.30% of 262
+Taken at least once:24.43% of 262
+Calls executed:20.57% of 175
+Creating 'Life.c++.gcov'
+File 'TestLife.c++'
+Lines executed:100.00% of 620
+Branches executed:70.71% of 3004
+Taken at least once:37.12% of 3004
+Calls executed:51.15% of 3165
+Creating 'TestLife.c++.gcov'
+File 'Life.c++'
+Lines executed:53.07% of 179
+Branches executed:31.30% of 262
+Taken at least once:24.43% of 262
+Calls executed:20.57% of 175
+Creating 'Life.c++.gcov'
+File 'TestLife.c++'
+Lines executed:100.00% of 635
+Branches executed:70.71% of 3086
+Taken at least once:37.07% of 3086
+Calls executed:51.20% of 3260
+Creating 'TestLife.c++.gcov'
+File 'Life.c++'
+Lines executed:55.87% of 179
+Branches executed:32.06% of 262
+Taken at least once:24.81% of 262
+Calls executed:21.14% of 175
+Creating 'Life.c++.gcov'
+File 'TestLife.c++'
+Lines executed:100.00% of 650
+Branches executed:70.73% of 3170
+Taken at least once:37.03% of 3170
+Calls executed:51.25% of 3356
+Creating 'TestLife.c++.gcov'
+File 'Life.c++'
+Lines executed:55.87% of 179
+Branches executed:32.06% of 262
+Taken at least once:24.81% of 262
+Calls executed:21.14% of 175
+Creating 'Life.c++.gcov'
+File 'TestLife.c++'
+Lines executed:100.00% of 650
+Branches executed:70.73% of 3170
+Taken at least once:37.03% of 3170
+Calls executed:51.25% of 3356
+Creating 'TestLife.c++.gcov'
+File 'Life.c++'
+Lines executed:55.87% of 179
+Branches executed:32.06% of 262
+Taken at least once:24.81% of 262
+Calls executed:21.14% of 175
+Creating 'Life.c++.gcov'
+File 'TestLife.c++'
+Lines executed:100.00% of 650
+Branches executed:70.73% of 3170
+Taken at least once:37.03% of 3170
+Calls executed:51.25% of 3356
+Creating 'TestLife.c++.gcov'
+File 'Life.c++'
+Lines executed:55.62% of 178
+Branches executed:31.54% of 260
+Taken at least once:24.62% of 260
+Calls executed:21.14% of 175
+Creating 'Life.c++.gcov'
+File 'TestLife.c++'
+Lines executed:100.00% of 650
+Branches executed:70.73% of 3170
+Taken at least once:37.03% of 3170
+Calls executed:51.25% of 3356
+Creating 'TestLife.c++.gcov'
+File 'Life.c++'
+Lines executed:55.62% of 178
+Branches executed:31.54% of 260
+Taken at least once:24.62% of 260
+Calls executed:20.69% of 174
+Creating 'Life.c++.gcov'
+File 'TestLife.c++'
+Lines executed:100.00% of 650
+Branches executed:70.73% of 3170
+Taken at least once:37.03% of 3170
+Calls executed:51.25% of 3356
+Creating 'TestLife.c++.gcov'
+File 'Life.c++'
+Lines executed:55.87% of 179
+Branches executed:32.06% of 262
+Taken at least once:24.81% of 262
+Calls executed:21.59% of 176
+Creating 'Life.c++.gcov'
+File 'TestLife.c++'
+Lines executed:100.00% of 650
+Branches executed:70.73% of 3170
+Taken at least once:37.03% of 3170
+Calls executed:51.25% of 3356
+Creating 'TestLife.c++.gcov'
